@@ -40,15 +40,31 @@ inp_down = input_language.chomp.downcase
 # puts "\nNOT downcase - #{input_language.class}, down - #{inp_down.class}"
 
 # 3.2 #
-unless inp_down != 'ruby' then
-	puts "Oh, what's a toady!"
-else
-	puts "Ruby will be soon... And please, learn some other language"
-	if 	inp_down == 'c#'
-		puts "/But Windows apps is cool/"
-	elsif inp_down == "java"
- 		puts "/However, your pain is too hard/"
-	elsif inp_down == "sql"
-	 	puts "/And your database will die/"
-	end
+# unless inp_down != 'ruby' then
+# 	puts "Oh, what's a toady!"
+# else
+# 	puts "Ruby will be soon... And please, learn some other language"
+# 	if 	inp_down == 'c#'
+# 		puts "/But Windows apps is cool/"
+# 	elsif inp_down == "java"
+#  		puts "/However, your pain is too hard/"
+# 	elsif inp_down == "sql"
+# 	 	puts "/And your database will die/"
+# 	end
+# end
+
+# 3.3 #
+case inp_down
+	when 'ruby'
+		puts "Oh, what's a toady!"
+	when 'c#'
+		puts "Ruby will be soon... But Windows apps is cool"
+	when "java"
+		puts "Ruby will be soon... However, your pain is too hard"
+	when "sql"
+		puts "Ruby will be soon... And your database will die"
+	else
+		puts "Ruby will be soon... And please, learn some other language"
 end
+
+	 	
