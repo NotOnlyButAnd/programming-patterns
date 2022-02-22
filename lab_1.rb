@@ -18,7 +18,7 @@ puts "Ky-ky, #{input_name}"
 
 # 3 #
 # About language...
-puts "What's your favourite language (programming, of course)?"
+puts "\nWhat's your favourite language (programming, of course)?"
 
 input_language = gets
 inp_down = input_language.chomp.downcase
@@ -67,4 +67,16 @@ case inp_down
 		puts "Ruby will be soon... And please, learn some other language"
 end
 
-	 	
+# 4 #	 	
+# About RUBY command...
+puts "\nPlease, input some Ruby command"
+inp_ruby_com = gets.chomp
+puts "Result: "
+eval(inp_ruby_com)	# интрепретирует строку как код на Ruby, напр: puts "Hey you..."
+
+# About OS command...
+puts "\nPlease, input some OS command"
+inp_os_com = gets.chomp
+puts "Result: "
+exec inp_os_com	# выполняет команду системы, напр: help
+				# тут можно использовать system inp_os_com, вроде как она в подоболочке запустится
