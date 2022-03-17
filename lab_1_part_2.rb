@@ -93,6 +93,8 @@ def my_main number, num_meth
 		print "Mul by function: ", mul_of_digits(num_copy)
 	when 5
 		print "Count of divider, that is not divide by 3: ", count_div_not_by_3(num_copy)
+	when 6
+		print "Min uneven (odd) digit: ", min_uneven_dig(num_copy)
 	else
 		print "Hey, i haven't such method :("
 	end
@@ -108,6 +110,21 @@ def count_div_not_by_3 number
 		end
 	end
 	return count
+end
+
+# Finding min uneven (odd) digit
+def min_uneven_dig number
+	min = 11
+	while number > 0
+		cur_dig = number % 10
+		cur_dig % 2 != 0 ? (cur_dig < min ? min = cur_dig : min) : min # Костыльно??
+		number /= 10
+	end
+	if min == 11
+		return -1
+	else
+		return min
+	end
 end
 
 if ARGV.length == 2 then
