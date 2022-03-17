@@ -91,9 +91,23 @@ def my_main number, num_meth
 		print "Sum by function: ", sum_of_digits(num_copy)
 	when 4
 		print "Mul by function: ", mul_of_digits(num_copy)
+	when 5
+		print "Count of divider, that is not divide by 3: ", count_div_not_by_3(num_copy)
 	else
 		print "Hey, i haven't such method :("
 	end
+end
+
+# Variant 11
+# Finding count of divider, that is not divide by 3
+def count_div_not_by_3 number
+	count = 0
+	for div in 1..number/2
+		if number % div == 0 && div % 3 != 0
+			count += 1
+		end
+	end
+	return count
 end
 
 if ARGV.length == 2 then
@@ -106,5 +120,3 @@ elsif ARGV.length == 0
 else
 	puts "Sorry, too much arguments. Try to put 2 arguments."
 end
-
-
