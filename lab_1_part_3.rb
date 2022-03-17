@@ -54,6 +54,11 @@ def mul_elem_arr my_array
 	end
 end
 
+# Playing with array...
+# puts "#{arr[3]}, #{arr2[0].class}, length: #{arr.length}, ARR: #{arr}"
+
+# 1 #
+=begin
 arr = [2, 3, 1, 6]
 arr2 = []
 puts "arr: #{arr}"
@@ -61,4 +66,52 @@ puts "min: #{min_elem_arr(arr)}"
 puts "max: #{max_elem_arr(arr)}"
 puts "sum: #{sum_elem_arr(arr)}"
 puts "mul: #{mul_elem_arr(arr)}"
-# puts "#{arr[3]}, #{arr2[0].class}, length: #{arr.length}, ARR: #{arr}"
+=end
+
+
+# 2 #
+# main func for task 2 part 3 lab 1
+def my_main my_arr, num_meth
+	puts "your array: #{my_arr}"
+	case num_meth
+	when 1
+		print "Min elem : ", min_elem_arr(my_arr)
+	when 2
+		print "Max elem : ", max_elem_arr(my_arr)
+	when 3
+		print "Sum elems : ", sum_elem_arr(my_arr)
+	when 4
+		print "Mul elems : ", mul_elem_arr(my_arr)
+	else
+		print "Hey, i haven't such method :("
+	end
+end
+
+# ARGV[0] - method (1\2\3\4), ARGV[1] - input type (k\f), ARGV[2] - file path
+if ARGV.length == 3 then
+	if ARGV[1] == "f"
+		puts "Reading array from file #{ARGV[2]}..."
+		arr = [3,4,6,2,]
+		my_main(arr, ARGV[0].to_i)
+	elsif ARGV[1] == "k"
+		puts "Huh? there are 3 args, but read from keyboard? Ok, input elems:"
+		arr = [3,4,6,2,]
+		my_main(arr, ARGV[0].to_i)
+	else
+		puts "Huh? I don't know such 2-nd arg..."
+	end
+elsif ARGV.length == 2
+	if ARGV[1] == "f"
+		puts "Huh? From file? But there's no path..."
+	elsif ARGV[1] == "k"
+		puts "Ok, input some array elements:"
+		arr = [3,4,6,2,]
+		my_main(arr, ARGV[0].to_i)
+	else
+		puts "Huh? I don't know such 2-nd arg..."
+	end
+elsif ARGV.length == 1
+	puts "Sorry, too less arguments. Try to put 2 (or 3) arguments."
+else
+	puts "Sorry, too much (less) arguments. Try to put 2 (or 3) arguments."
+end
