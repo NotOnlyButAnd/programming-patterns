@@ -72,7 +72,7 @@ puts "mul: #{mul_elem_arr(arr)}"
 # 2 #
 # main func for task 2 part 3 lab 1
 def my_main my_arr, num_meth
-	puts "your array: #{my_arr}"
+	puts "your array: #{my_arr} #{my_arr.class} of #{my_arr[0].class}"
 	case num_meth
 	when 1
 		print "Min elem : ", min_elem_arr(my_arr)
@@ -91,11 +91,13 @@ end
 if ARGV.length == 3 then
 	if ARGV[1] == "f"
 		puts "Reading array from file #{ARGV[2]}..."
-		arr = [3,4,6,2,]
+		arr = File.read(ARGV[2]).split(' ').map(&:to_i)
+		puts "your array: #{arr} #{arr.class} of #{arr[0].class}"
 		my_main(arr, ARGV[0].to_i)
 	elsif ARGV[1] == "k"
 		puts "Huh? there are 3 args, but read from keyboard? Ok, input elems:"
-		arr = [3,4,6,2,]
+		input_str = STDIN.gets.chomp
+		arr = input_str.split(' ').map(&:to_i)
 		my_main(arr, ARGV[0].to_i)
 	else
 		puts "Huh? I don't know such 2-nd arg..."
@@ -104,8 +106,9 @@ elsif ARGV.length == 2
 	if ARGV[1] == "f"
 		puts "Huh? From file? But there's no path..."
 	elsif ARGV[1] == "k"
-		puts "Ok, input some array elements:"
-		arr = [3,4,6,2,]
+		puts "Ok, input some array elements (SPACE BETWEEN ELEMS!!!):"
+		input_str = STDIN.gets.chomp
+		arr = input_str.split(' ').map(&:to_i)
 		my_main(arr, ARGV[0].to_i)
 	else
 		puts "Huh? I don't know such 2-nd arg..."
