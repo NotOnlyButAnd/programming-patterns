@@ -40,8 +40,19 @@ def task_2 my_str
     return my_str.split(' ').min { |a, b| a.to_i <=> b.to_i }
 end
 
+# 14 #
+=begin
+Дана строка. Необходимо найти наибольшее количество идущих
+подряд цифр
+аФа1054ЯсФasdA12иии*ф_)*0019284ыв(!"ФАФЯмяофл -> 0019284
+=end
+def task_3 my_str
+    return my_str.scan(/[0-9]+/).max{|a,b| a.length <=> b.length }
+end
+
 puts "Input some string: "
 first_string = STDIN.gets.chomp
 #puts "Date's: ", all_data(first_string)
 #puts "Max kyrillic: #{task_1(first_string)}"
-puts "Min natural num: #{task_2(first_string)}"
+#puts "Min natural num: #{task_2(first_string)}"
+puts "Max num: #{task_3(first_string)}"
