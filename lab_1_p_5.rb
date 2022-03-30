@@ -28,7 +28,17 @@ def task_3 my_str
 	return my_str.split(' ').sort_by{|i| i.length}
 end
 
-first_str = "Привет мир!"
-puts "Shaked str: #{task_1(first_str)}"
-puts "Is palindrom? -> #{task_2("As We Can")}"
-puts "Sorted words: #{task_3("Hello world's in the house")}"
+puts "Input some string: "
+first_str = STDIN.gets.chomp
+puts "Choose task\n1 - Random shake str symbol's;\n2 - Is BIG latin palindrom\n3 - Sort words by letter's count"
+choice = STDIN.gets.chomp.to_i
+case choice
+	when 1
+		print "Shake: ", task_1(first_str)
+	when 2
+		print "Palindrom? -> ", task_2(first_str)
+	when 3
+		print "Sorted words: ", task_3(first_str)
+	else
+		print "Hey, i haven't such method :("
+	end
