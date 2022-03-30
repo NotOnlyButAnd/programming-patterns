@@ -29,7 +29,19 @@ def task_1 my_str
     return my_str.scan(/[а-яёА-ЯЁ]+/).max{|a,b| a.length <=> b.length }
 end
 
+# 7 #
+=begin
+Дана строка. Необходимо найти минимальное из имеющихся в ней
+натуральных чисел
+предположим, что раз НАТУРАЛЬНЫЕ ЧИСЛА, то разделены хоть чем-то (пробел)
+12 4 28 3 84 -> 3
+=end
+def task_2 my_str
+    return my_str.split(' ').min { |a, b| a.to_i <=> b.to_i }
+end
+
 puts "Input some string: "
 first_string = STDIN.gets.chomp
 #puts "Date's: ", all_data(first_string)
-puts "Max kyrillic: #{task_1(first_string)}"
+#puts "Max kyrillic: #{task_1(first_string)}"
+puts "Min natural num: #{task_2(first_string)}"
