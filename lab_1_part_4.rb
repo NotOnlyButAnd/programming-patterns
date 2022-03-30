@@ -37,6 +37,30 @@ def task_3 my_arr
 end
 
 
+# 47 #
+=begin
+Для введенного списка положительных чисел построить список всех
+положительных делителей элементов списка без повторений
+[4, 6, 9, 15] -> [1, 2, 3, 4, 5, 6, 9, 15]...
+=end
+def task_4 my_arr
+	t_arr = my_arr.map{ |i| (1..i)}
+	t_arr = t_arr.map{ |i| i.select{ |n| (i.max%n==0) } }
+	return t_arr.flatten.uniq.sort
+end
+
+# 59 #
+=begin
+Дан список. Построить новый список из квадратов
+неотрицательных чисел, меньших 100 и встречающихся в массиве
+больше 2 раз.
+[-1 2 101 2 102 2 -2 3 -101 -100 3 -3 3 3] -> [4, 9]...
+=end
+def task_5 my_arr
+	# Или не uniq, по заданию? По красоте конечно uniq
+	return my_arr.select{ |i| i < 100 && i >= 0 && my_arr.count(i) > 2}.uniq.map{ |i| i*i}
+end
+
 def my_main my_arr, num_meth
 	case num_meth
 	when 1
@@ -45,6 +69,10 @@ def my_main my_arr, num_meth
 		print "2 min elems: ", task_2(my_arr)
 	when 3
 		print "Nearest elem: ", task_3(my_arr)
+	when 4
+		print "Dividers: ", task_4(my_arr)
+	when 5
+		print "Rectangles: ", task_5(my_arr)
 	else
 		print "Hey, i haven't such method :("
 	end
