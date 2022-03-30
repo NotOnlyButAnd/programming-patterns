@@ -51,8 +51,18 @@ def task_3 my_str
 end
 
 puts "Input some string: "
-first_string = STDIN.gets.chomp
-#puts "Date's: ", all_data(first_string)
-#puts "Max kyrillic: #{task_1(first_string)}"
-#puts "Min natural num: #{task_2(first_string)}"
-puts "Max num: #{task_3(first_string)}"
+first_str = STDIN.gets.chomp
+puts "Choose task\n1 - Get all date's;\n2 - Get max kyrillic sequence\n3 - Get min natural numb\n4 - Get max num sequence"
+choice = STDIN.gets.chomp.to_i
+case choice
+    when 1
+        print "Date's: ", all_data(first_str)
+    when 2
+        print "Max kyrillic: ", task_1(first_str)
+    when 3
+        print "Min natural num: ", task_2(first_str)
+    when 4
+        print "Max num: ", task_3(first_str)
+    else
+        print "Hey, i haven't such method :("
+    end
