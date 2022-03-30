@@ -10,11 +10,25 @@ def task_1 my_arr
 	return my_arr.select{ |i| my_arr.count(i) == 1 }[0]
 end
 
+# 23 #
+=begin
+Дан целочисленный массив. Необходимо найти два наименьших
+элемента.
+[1 2 3 4 5] -> 1, 2, [4 1 6 3 6 3] -> 1, 3...
+=end
+def task_2 my_arr
+	min_1 = my_arr.min
+	my_arr.delete(min_1)
+	min_2 = my_arr.min
+	return min_1, min_2
+end
 
 def my_main my_arr, num_meth
 	case num_meth
 	when 1
 		print "Еhe only one elem: ", task_1(my_arr)
+	when 2
+		print "2 min elems: ", task_2(my_arr)
 	else
 		print "Hey, i haven't such method :("
 	end
