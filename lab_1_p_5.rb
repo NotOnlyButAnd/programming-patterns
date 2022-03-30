@@ -19,6 +19,16 @@ def task_2 my_str
 	return t == t.reverse
 end
 
+# 14 #
+=begin
+Дана строка в которой записаны слова через пробел. Необходимо
+упорядочить слова по количеству букв в каждом слове
+=end
+def task_3 my_str
+	return my_str.split(' ').sort_by{|i| i.length}
+end
+
 first_str = "Привет мир!"
 puts "Shaked str: #{task_1(first_str)}"
 puts "Is palindrom? -> #{task_2("As We Can")}"
+puts "Sorted words: #{task_3("Hello world's in the house")}"
