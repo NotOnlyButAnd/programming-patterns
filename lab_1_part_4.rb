@@ -13,8 +13,8 @@ end
 # 23 #
 =begin
 Дан целочисленный массив. Необходимо найти два наименьших
-элемента.
-[1 2 3 4 5] -> 1, 2, [4 1 6 3 6 3] -> 1, 3...
+элемента
+[1 2 3 4 5] -> 1, 2; [4 1 6 3 6 3] -> 1, 3...
 =end
 def task_2 my_arr
 	min_1 = my_arr.min
@@ -23,12 +23,28 @@ def task_2 my_arr
 	return min_1, min_2
 end
 
+# 35 #
+=begin
+Дано вещественное число R и массив вещественных чисел. Найти
+элемент массива, который наиболее близок к данному числу
+[1.25 1.2 1.75 2.2 0.79] 1.6 -> 1.75...
+ЗАДАНИЕ 3 ПРИ АЛЬТЕРНАТИВЕ "1 АРГУМЕНТ" - любой
+=end
+def task_3 my_arr
+	puts "Ok, input some FLOAT number:"
+	numb = STDIN.gets.chomp.to_f
+	return my_arr.sort_by{ |i| (i-numb).abs }[0]
+end
+
+
 def my_main my_arr, num_meth
 	case num_meth
 	when 1
 		print "Еhe only one elem: ", task_1(my_arr)
 	when 2
 		print "2 min elems: ", task_2(my_arr)
+	when 3
+		print "Nearest elem: ", task_3(my_arr)
 	else
 		print "Hey, i haven't such method :("
 	end
@@ -61,7 +77,15 @@ elsif ARGV.length == 2
 		puts "Huh? I don't know such 2-nd arg..."
 	end
 elsif ARGV.length == 1
-	puts "Sorry, too less arguments. Try to put 2 (or 3) arguments."
+	if ARGV[0] == "3"
+		puts "Ok, doing task 3..."
+		puts "Ok, input some FLOAT array elements (SPACE BETWEEN ELEMS!!!):"
+		input_str = STDIN.gets.chomp
+		arr = input_str.split(' ').map(&:to_f)
+		my_main(arr, ARGV[0].to_i)
+	else
+		puts "Sorry, too less arguments. Try to put 2 (or 3) arguments."
+	end
 else
 	puts "Sorry, too much (less) arguments. Try to put 2 (or 3) arguments."
 end
