@@ -1,25 +1,12 @@
 class Department
+	attr_accessor :name
+  	attr_reader :phone
+    
 	def initialize (name, phone, *commitments)	# конструктор класса
-		@name = name	# поле объекта
-		@phone = phone
+		self.name = name	# поле объекта
+		self.phone = phone
 		@commitments = commitments
-		@selected_comm_index = 0
-	end
-
-	def getName	# Геттер на название
-		@name
-	end
-
-	def setName(name)	# Сеттер на название
-		@name=name
-	end
-
-	def getPhone	# Геттер на телефон
-		@phone
-	end
-
-	def setPhone(phone)	# Сеттер на телефон
-		@phone=phone
+		@selected_comm_index = nil
 	end
 
 	# плохой геттер, лучше не получать массив целиком
@@ -27,71 +14,68 @@ class Department
 	#	@commitments
 	#end
 
-	def printInfo	# вывод информации об объекте класса Department
-		puts "Department \"#{getName}\"; Contact phone: #{getPhone}; Commitments: #{@commitments}"
+	def to_s	# преобразование объекта в строку
+		"Department \"#{self.name}\"; Contact phone: #{self.phone}; Commitments: #{@commitments}"
 	end
 
-	def addCommitment(commitment)	# добавление обязанности
+	def add_commitment(commitment)	# добавление обязанности
 		@commitments.append(commitment)
 	end
 
-	def selectCommitmentByName(commitment)	# Выбор обязанности по имени
-		@selected_comm_index = @commitments.index(commitment)
-	end
-
-	def selectCommitmentByIndex(commitment_index)	# Выбор обязанности по индексу
+	def select_commitment_by_index(commitment_index)	# Выбор обязанности по индексу
 		@selected_comm_index = commitment_index
 	end
 
-	def deleteCommitmentByPos(commitment_index)	# удаление обязанности по индексу
-		@commitments.delete_at(commitment_index)
-	end
-
-	def deleteCommitmentByName(commitment)	# удаление обязанности по названию
-		@commitments.delete(commitment)
-	end
-
-	def deleteSelectedCommitment	# удаление выделенной обязанности
+	def delete_selected_commitment	# удаление выделенной обязанности
 		@commitments.delete_at(@selected_comm_index)
 		# @selected_comm_index = 0
 	end
 
-	def getSelectedCommText		# получение текста выделенной обязанности
+	def get_selected_comm_text		# получение текста выделенной обязанности
 		@commitments[@selected_comm_index]
 	end
 
-	def changeSelectedCommText(val)		# изменение текста выделенной обязанности
+	def change_selected_comm_text(val)		# изменение текста выделенной обязанности
 		@commitments[@selected_comm_index] = val
 	end
 
-	def printCommitments	# вывод обязанностей на экран
-		puts "Commitments of \"#{getName}\":"
-		@commitments.each { |x| puts x}
+	def get_commitments_info	# all commitments in string
+		t_s = "Commitments of \"#{self.name}\": "
+		@commitments.each { |x| t_s = t_s + x + "; "}
+		return t_s
 	end
+
+	# метод класса проверки корректности номера телефона (простая проверка в международном формате)
+	def self.is_correct_phone (val)
+		/^((\+7)+([0-9]){10})$/.match(val).to_s == val
+	end
+
+	def phone=(val)
+		if self.class.is_correct_phone(val)
+			@phone = val
+		else
+			raise ArgumentError.new("Phone number is incorrect!")
+		end
+	end
+	
 end
 
-# создаем объекты класса
-dep_1 = Department.new('First Department', '+7 999 633 22 37')
-puts "#{dep_1.getName} with phone: #{dep_1.getPhone} were created..."
-# puts "#{dep_1.name} with phone: #{dep_1.phone} were created..." - так не получится
+=begin
+nil может быть использовать как проверку что ничего не выбрано?
+t_arr = [1,2,3,4,5,6,7,8,9]
+puts t_arr[nil]
+=end
 
-dep_2 = Department.new('Second Department', '+7 861 254 12 35')
-puts "#{dep_2.getName} with phone: #{dep_2.getPhone} were created..."
+# testing new to_s...
+#dep_3 = Department.new('Third Department', '+78613991111')
+dep_3 = Department.new('Third Department', '+78613991111', 'W1', 'W2', 'W3')
 
-# создаем объект и выводим инфу более красиво
-dep_3 = Department.new('Third Department', '+7 861 399 11 11')
-print "Were created: "
-dep_3.printInfo
-dep_3.addCommitment("Work for BOSS")
-dep_3.addCommitment("Sitting at the chair")
-dep_3.addCommitment("Drinking tea")
-dep_3.printCommitments
+# почему он создает список списка, если я там не создаю список нигде?
+# или это проблема компилятора
+#dep_3 = Department.new('Third Department', '+78613991111', ['W1', 'W2', 'W3'])
 
-# создаем объект с обязанностями
-sales_dep = Department.new('Sales department', '+78612341122', 'Making reports', 'Realizating sales', 'Changing tariffs')
-sales_dep.printInfo
-sales_dep.selectCommitmentByIndex(1)
-sales_dep.changeSelectedCommText("Making paper planes")
-puts sales_dep.getSelectedCommText
-sales_dep.deleteSelectedCommitment
-sales_dep.printInfo
+puts "Were created: " + dep_3.to_s
+#dep_3.add_commitment("Making reports")
+#dep_3.add_commitment("Work for BOSS")
+#dep_3.add_commitment("Drinking tea")
+puts dep_3.get_commitments_info
