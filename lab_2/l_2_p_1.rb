@@ -15,7 +15,7 @@ class Department
 	#end
 
 	def to_s	# преобразование объекта в строку
-		"Department \"#{self.name}\"; Contact phone: #{self.phone}; Commitments: #{@commitments}"
+		"Department: \"#{self.name}\"; Contact phone: #{self.phone}; Commitments: #{@commitments}"
 	end
 
 	def add_commitment(commitment)	# добавление обязанности
@@ -58,7 +58,27 @@ class Department
 		end
 	end
 	
+	# метод класса для записи массива объектов Department dep_list в txt файл
+	# не работает !!!!
+	def self.write_to_txt(dep_list)
+	    str = ""
+	    for dep in dep_list
+	        cur_d_s = dep.to_s.gsub(/[\"]|[\[]|[\]]/,'')
+	        cur_d_s['Department: '] = ''
+	        cur_d_s[' Contact phone: '] = ''
+	        cur_d_s[' Comitments: '] = ''
+	        str += cur_d_s  # удалили все ненужные символы
+	        
+	        # \n\r - перенос на новую строку. в онлайн компиляторе не работает
+	    end
+	    file = File.new("./output_data.txt", "w:UTF-8")
+	    file.print(str)
+	    file.close()
+	    return 'output_data.txt'
+	end
+	
 end
+
 
 =begin
 nil может быть использовать как проверку что ничего не выбрано?
@@ -79,3 +99,16 @@ puts "Were created: " + dep_3.to_s
 #dep_3.add_commitment("Work for BOSS")
 #dep_3.add_commitment("Drinking tea")
 puts dep_3.get_commitments_info
+
+dep_4 = Department.new('Fourth Department', '+78005553535', 'W1', 'W2', 'W3')
+puts "Were created: " + dep_4.to_s
+puts dep_4.get_commitments_info
+
+# создаем массив объектов, пока так
+dep_list = [dep_3, dep_4]
+puts "\nYour array:"
+dep_list.each { |dep|  puts dep.to_s}
+
+puts 'Your array were printed to: ' + Department.write_to_txt(dep_list)
+
+
