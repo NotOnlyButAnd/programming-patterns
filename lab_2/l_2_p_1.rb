@@ -1,3 +1,5 @@
+require "yaml"
+
 class Department
 	attr_accessor :name
   	attr_reader :phone
@@ -61,7 +63,7 @@ class Department
 	def self.read_from_txt(path)
 		my_objs = []
 		for strin in File.readlines(path)
-			cur_fields = strin.chomp.split('|')
+			cur_fields = strin.chomp.split(';')
 			my_objs.append(Department.new(cur_fields[0], cur_fields[1], *cur_fields[2].split(', ')))
 		end
 		return my_objs
@@ -74,7 +76,6 @@ class Department
 	end
 
 	# метод класса для записи массива объектов Department dep_list в txt файл
-	# не работает !!!!
 	def self.write_to_txt(dep_list, path)
 	    str = ""
 	    for dep in dep_list
@@ -89,6 +90,18 @@ class Department
 	    file.close()
 	    return "#{path}"
 	end
+
+	def self.write_to_YAML(dep_list, path)
+	    File.open( path, 'w' ) do |out|
+  			YAML.dump( dep_list, out )
+		end
+	    return path
+	end
+
+	def self.read_from_YAML(path)
+	    return File.open( "dep_data.yaml" ) { |yf| YAML::load( yf ) }
+	end
+
 end
 
 =begin
@@ -142,9 +155,24 @@ puts "\nReaded deps:"
 my_deps = Department.read_from_txt(path)
 Department.print_deps_arr(my_deps)
 
-# запись в файл
+# запись в файл txt
+=begin
 my_deps.append(dep_4)
 puts "\nYour array:"
 my_deps.each { |dep|  puts dep.to_s}
 
 puts "\nYour array were printed to: " + Department.write_to_txt(my_deps, "dep_data.txt")
+=end
+
+# запись в файл yaml
+print "\nDep list were writed to ", Department.write_to_YAML(my_deps, "dep_data.yaml"), "\n"
+
+# чтение из yaml
+dep_list_yaml = Department.read_from_YAML("dep_data.yaml")
+Department.print_deps_arr(dep_list_yaml)
+
+# добавим новый департамент и перезапишем и прочитаем
+dep_list_yaml.append(dep_3)
+print "\nDep list were writed to ", Department.write_to_YAML(dep_list_yaml, "dep_data.yaml"), "\n"
+dep_list_yaml = Department.read_from_YAML("dep_data.yaml")
+Department.print_deps_arr(dep_list_yaml)
