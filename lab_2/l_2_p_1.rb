@@ -57,43 +57,58 @@ class Department
 			raise ArgumentError.new("Phone number is incorrect!")
 		end
 	end
-	
-	# метод класса для записи массива объектов Department dep_list в txt файл
-	# не работает !!!!
-	def self.write_to_txt(dep_list)
-	    str = ""
-	    for dep in dep_list
-	        cur_d_s = dep.to_s.gsub(/[\"]|[\[]|[\]]/,'')
-	        cur_d_s['Department: '] = ''
-	        cur_d_s[' Contact phone: '] = ''
-	        cur_d_s[' Comitments: '] = ''
-	        str += cur_d_s  # удалили все ненужные символы
-	        
-	        # \n\r - перенос на новую строку. в онлайн компиляторе не работает
-	    end
-	    file = File.new("./output_data.txt", "w:UTF-8")
-	    file.print(str)
-	    file.close()
-	    return 'output_data.txt'
+
+	def self.read_from_txt(path)
+		my_objs = []
+		for strin in File.readlines(path)
+			cur_fields = strin.chomp.split('|')
+			my_objs.append(Department.new(cur_fields[0], cur_fields[1], *cur_fields[2].split(',')))
+		end
+		return my_objs
 	end
-	
+
+	def self.print_deps_arr(deps_arr)
+		for dep in deps_arr
+			puts dep.to_s
+		end
+	end
 end
 
-
 =begin
-nil может быть использовать как проверку что ничего не выбрано?
-t_arr = [1,2,3,4,5,6,7,8,9]
-puts t_arr[nil]
+# создаем объекты класса
+dep_1 = Department.new('First Department', '+79996332237')
+puts "#{dep_1.getName} with phone: #{dep_1.getPhone} were created..."
+# puts "#{dep_1.name} with phone: #{dep_1.phone} were created..." - так не получится
+
+dep_2 = Department.new('Second Department', '+78612541231')
+puts "#{dep_2.getName} with phone: #{dep_2.getPhone} were created..."
+=end
+
+# создаем объект и выводим инфу более красиво
+=begin
+dep_3 = Department.new('Third Department', '+78613991111')
+print "Were created: "
+puts dep_3.to_s
+dep_3.addCommitment("Work for BOSS")
+dep_3.addCommitment("Sitting at the chair")
+dep_3.addCommitment("Drinking tea")
+dep_3.printCommitments
+=end
+
+# создаем объект с обязанностями
+=begin
+sales_dep = Department.new('Sales department', '+78612341122', 'Making reports', 'Realizating sales', 'Changing tariffs')
+puts sales_dep.to_s
+sales_dep.selectCommitmentByIndex(1)
+sales_dep.changeSelectedCommText("Making paper planes")
+puts sales_dep.getSelectedCommText
+sales_dep.deleteSelectedCommitment
+puts sales_dep.to_s
 =end
 
 # testing new to_s...
 #dep_3 = Department.new('Third Department', '+78613991111')
 dep_3 = Department.new('Third Department', '+78613991111', 'W1', 'W2', 'W3')
-
-# почему он создает список списка, если я там не создаю список нигде?
-# или это проблема компилятора
-#dep_3 = Department.new('Third Department', '+78613991111', ['W1', 'W2', 'W3'])
-
 puts "Were created: " + dep_3.to_s
 #dep_3.add_commitment("Making reports")
 #dep_3.add_commitment("Work for BOSS")
@@ -104,11 +119,8 @@ dep_4 = Department.new('Fourth Department', '+78005553535', 'W1', 'W2', 'W3')
 puts "Were created: " + dep_4.to_s
 puts dep_4.get_commitments_info
 
-# создаем массив объектов, пока так
-dep_list = [dep_3, dep_4]
-puts "\nYour array:"
-dep_list.each { |dep|  puts dep.to_s}
-
-puts 'Your array were printed to: ' + Department.write_to_txt(dep_list)
-
-
+# чтение из файла
+path = File.dirname(__FILE__) + '/dep_data.txt' # Получили путь к файлу рядом с исполняемым
+puts "Readed deps:"
+my_deps = Department.read_from_txt(path)
+Department.print_deps_arr(my_deps)
