@@ -77,3 +77,6 @@ dep_list_yaml = Department.read_from_YAML("dep_data.yaml")
 Department.print_deps_arr(dep_list_yaml)
 =end
 
+puts "--------------"
+arr = ["a", "b", "c", "d", "e"]
+puts "0: #{arr[0]};\n-1: #{arr[-1]};\n-5: #{arr[-5]};"

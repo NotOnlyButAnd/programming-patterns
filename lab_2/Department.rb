@@ -30,7 +30,7 @@ class Department
 
 	def delete_selected_commitment	# удаление выделенной обязанности
 		@commitments.delete_at(@selected_comm_index)
-		# @selected_comm_index = 0
+		@selected_comm_index = nil
 	end
 
 	def get_selected_comm_text		# получение текста выделенной обязанности
