@@ -80,3 +80,17 @@ Department.print_deps_arr(dep_list_yaml)
 puts "--------------"
 arr = ["a", "b", "c", "d", "e"]
 puts "0: #{arr[0]};\n-1: #{arr[-1]};\n-5: #{arr[-5]};"
+puts "--------------"
+
+dep_list_obj = Department_list.new(*dep_list_yaml)
+dep_list_obj.choose_note(0)
+
+print dep_list_obj.class, " of ", dep_list_obj.get_note.class, "\n"
+puts dep_list_obj.to_s
+
+# ПРОВЕРКА НА принадлежность объекта к классу для add_note()
+if (dep_3.class == Department)
+    puts "YAY"
+else
+    puts "no("
+end
