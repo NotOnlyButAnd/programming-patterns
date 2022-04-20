@@ -76,3 +76,4 @@ print "\nDep list were writed to ", Department.write_to_YAML(my_deps, "dep_data.
 dep_list_yaml = Department.read_from_YAML("dep_data.yaml")
 Department.print_deps_arr(dep_list_yaml)
 =end
+
