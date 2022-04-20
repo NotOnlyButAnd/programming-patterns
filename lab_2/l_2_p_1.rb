@@ -62,7 +62,7 @@ class Department
 		my_objs = []
 		for strin in File.readlines(path)
 			cur_fields = strin.chomp.split('|')
-			my_objs.append(Department.new(cur_fields[0], cur_fields[1], *cur_fields[2].split(',')))
+			my_objs.append(Department.new(cur_fields[0], cur_fields[1], *cur_fields[2].split(', ')))
 		end
 		return my_objs
 	end
@@ -71,6 +71,23 @@ class Department
 		for dep in deps_arr
 			puts dep.to_s
 		end
+	end
+
+	# метод класса для записи массива объектов Department dep_list в txt файл
+	# не работает !!!!
+	def self.write_to_txt(dep_list, path)
+	    str = ""
+	    for dep in dep_list
+	        cur_d_s = dep.to_s.gsub(/[\"]|[\[]|[\]]/,'')
+	        cur_d_s = cur_d_s.to_s.gsub('Department: ','')
+	        cur_d_s = cur_d_s.to_s.gsub(' Contact phone: ','')
+	        cur_d_s = cur_d_s.to_s.gsub(' Commitments: ','')
+	        str += cur_d_s + "\n"  # удалили все ненужные символы + на новую строку
+	    end
+	    file = File.new("./#{path}", "w:UTF-8")
+	    file.print(str)
+	    file.close()
+	    return "#{path}"
 	end
 end
 
@@ -116,11 +133,18 @@ puts "Were created: " + dep_3.to_s
 puts dep_3.get_commitments_info
 
 dep_4 = Department.new('Fourth Department', '+78005553535', 'W1', 'W2', 'W3')
-puts "Were created: " + dep_4.to_s
+puts "\nWere created: " + dep_4.to_s
 puts dep_4.get_commitments_info
 
 # чтение из файла
 path = File.dirname(__FILE__) + '/dep_data.txt' # Получили путь к файлу рядом с исполняемым
-puts "Readed deps:"
+puts "\nReaded deps:"
 my_deps = Department.read_from_txt(path)
 Department.print_deps_arr(my_deps)
+
+# запись в файл
+my_deps.append(dep_4)
+puts "\nYour array:"
+my_deps.each { |dep|  puts dep.to_s}
+
+puts "\nYour array were printed to: " + Department.write_to_txt(my_deps, "dep_data.txt")
