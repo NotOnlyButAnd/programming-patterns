@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + "/User.rb"
+require File.dirname(__FILE__) + "/Scooter.rb"
 
 # Создаем несколько пользователей
 user_1 = User.new("s0153478", "+79529762139")
@@ -32,3 +33,30 @@ User.print_users_arr(new_users)
 ###################################################
 #new_users_1 = User.read_from_YAML("users_data.yaml")
 #puts "\nReaded from YAML: ", User.print_users_arr(new_users_1)
+
+# Создаем несколько самокатов
+scooter_1 = Scooter.new("0001", 90, true)
+print "\nScooter were created: ", scooter_1.to_s
+
+scooter_2 = Scooter.new("0002", 87, true)
+print "\nScooter were created: ", scooter_2.to_s
+
+scooter_3 = Scooter.new("0003", 0, false)
+print "\nScooter were created: ", scooter_3.to_s 
+
+# добавляем созданных пользователей в массив
+my_scooters = [scooter_1, scooter_2, scooter_3]
+
+# запишем пользователей в файлы txt и YAML
+puts "\n\nWriting scooters to txt and YAML..."
+Scooter.write_to_txt(my_scooters, "scooters_data.txt")
+Scooter.write_to_YAML(my_scooters, "scooters_data.yaml")
+puts "Writed successfully!!"
+
+# читаем из txt, выводим (checked)
+new_scooters = Scooter.read_from_txt("scooters_data.txt")
+puts "\nReaded from txt: "
+Scooter.print_scooters_arr(new_scooters)
+
+#new_scooters_1 = Scooter.read_from_YAML("scooters_data.yaml")
+#puts "\nReaded from YAML: ", Scooter.print_scooters_arr(new_scooters_1)
